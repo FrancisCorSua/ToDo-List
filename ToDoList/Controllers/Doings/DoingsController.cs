@@ -72,11 +72,13 @@ public class DoingsController : ControllerBase
 
         var result = _doingsService.Update(id, updatedDto);
 
-        if (result == UpdateResult.NotFound)
-            return NotFound();
-
-        if (result == UpdateResult.InvalidState)
-            return BadRequest("Estado inválido.");
+        switch (result)
+        {
+            case UpdateResult.NotFound:
+                return NotFound();
+            case UpdateResult.InvalidState:
+                return BadRequest("Estado inválido.");
+        }
 
         var updated = _doingsService.GetById(id);
         if (updated == null)

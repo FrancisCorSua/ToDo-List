@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using ToDoList.Middleware;
 using ToDoList.Services.Doings;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +24,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<WrapResponseMiddleware>();
 
 app.MapControllers();
 
